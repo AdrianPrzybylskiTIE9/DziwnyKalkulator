@@ -18,5 +18,10 @@
         <item name="android:fontFamily">@font/archivo_black</item>
     </style>
 
+    <style name="SpinnerStyle">
+        <item name="android:paddingBottom">13dp</item>
+
+    </style>
+
 
 </resources>
