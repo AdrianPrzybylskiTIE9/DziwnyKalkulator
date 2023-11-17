@@ -19,7 +19,8 @@
     </style>
 
     <style name="SpinnerStyle">
-        <item name="android:paddingBottom">13dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingTop">5dp</item>
 
     </style>
 
