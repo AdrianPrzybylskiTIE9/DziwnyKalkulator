@@ -2,10 +2,77 @@ package com.example.dziwnykalkulator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import java.util.Calendar
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val spinner: Spinner = findViewById(R.id.timeUnitSpinner)
+        val button: Button = findViewById(R.id.calculateButton)
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val currUnit = parent?.getItemAtPosition(position).toString()
+                Toast.makeText(this@MainActivity, "Wybrałes: $currUnit", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Toast.makeText(this@MainActivity, "Nic nie wybrales 123", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        button.setOnClickListener{
+            val selectedUnit = spinner.selectedItem.toString()
+            calculateTimeSpan(selectedUnit)
+        }
+
+    }
+
+    private fun calculateTimeSpan(selectedUnit: String){
+        val datePicker: DatePicker = findViewById(R.id.datePicker)
+
+        val year = datePicker.year
+        val month = datePicker.month
+        val day = datePicker.dayOfMonth
+
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+
+        val selectedDate = calendar.timeInMillis
+
+        val millisecondsInSelectedUnit = when (selectedUnit) {
+            "Sekundy" -> 1000L
+            "Minuty" -> 60 * 1000L
+            "Godziny" -> 60 * 60 * 1000L
+            else -> 0L
+        }
+
+        val timeUnit = when (selectedUnit) {
+            "Sekundy" -> "sekund"
+            "Minuty" -> "minut"
+            "Godziny" -> "godzin"
+            else -> ""
+        }
+
+        val calculatedTime = selectedDate / millisecondsInSelectedUnit
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Obliczono Czas")
+        builder.setMessage("Od $day/$month/$year minęło $calculatedTime $timeUnit")
+        builder.show()
+
     }
 }

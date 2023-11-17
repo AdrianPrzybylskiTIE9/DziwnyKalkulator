@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DziwnyKalkulator</string>
+
+    <string-array name="time_units">
+        <item>Sekundy</item>
+        <item>Minuty</item>
+        <item>Godziny</item>
+    </string-array>
 </resources>
