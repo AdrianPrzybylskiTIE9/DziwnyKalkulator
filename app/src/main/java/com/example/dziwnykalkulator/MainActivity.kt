@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculateTimeSpan(selectedUnit: String){
         val datePicker = findViewById<DatePicker>(R.id.datePicker)
+        val textView4 = findViewById<TextView>(R.id.textView4)
+        val resultsTextView = findViewById<TextView>(R.id.Results)
 
         val year = datePicker.year
         val month = datePicker.month+1
@@ -75,9 +77,10 @@ class MainActivity : AppCompatActivity() {
 
         val calculatedTime = differenceInMillis / millisecondsInSelectedUnit
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Obliczono Czas")
-        builder.setMessage("Od $day/$month/$year minęło $calculatedTime $timeUnit")
-        builder.show()
+        resultsTextView.text = "Od $day/$month/$year minęło $calculatedTime $timeUnit"
+
+        textView4.visibility = View.VISIBLE
+        resultsTextView.visibility = View.VISIBLE
     }
+
 }
