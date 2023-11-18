@@ -14,8 +14,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val spinner: Spinner = findViewById(R.id.timeUnitSpinner)
-        val button: Button = findViewById(R.id.calculateButton)
+        val spinner = findViewById<Spinner>(R.id.timeUnitSpinner)
+        val button = findViewById<Button>(R.id.calculateButton)
+        var datePicker = findViewById<DatePicker>(R.id.datePicker)
+
+        val calendar = Calendar.getInstance()
+        datePicker.maxDate = calendar.timeInMillis
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -42,16 +46,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateTimeSpan(selectedUnit: String){
-        val datePicker: DatePicker = findViewById(R.id.datePicker)
+        val datePicker = findViewById<DatePicker>(R.id.datePicker)
 
         val year = datePicker.year
-        val month = datePicker.month
+        val month = datePicker.month+1
         val day = datePicker.dayOfMonth
 
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, day)
+        val calendarSelected = Calendar.getInstance()
+        calendarSelected.set(year, month-1, day)
 
-        val selectedDate = calendar.timeInMillis
+        val calendarToday = Calendar.getInstance()
+
+        val differenceInMillis = calendarToday.timeInMillis - calendarSelected.timeInMillis
 
         val millisecondsInSelectedUnit = when (selectedUnit) {
             "Sekundy" -> 1000L
@@ -67,12 +73,11 @@ class MainActivity : AppCompatActivity() {
             else -> ""
         }
 
-        val calculatedTime = selectedDate / millisecondsInSelectedUnit
+        val calculatedTime = differenceInMillis / millisecondsInSelectedUnit
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Obliczono Czas")
         builder.setMessage("Od $day/$month/$year minęło $calculatedTime $timeUnit")
         builder.show()
-
     }
 }

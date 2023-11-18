@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView2"
-        android:background="@drawable/datepicker"
+        android:background="@drawable/border_red"
         android:layout_marginHorizontal="16dp"
         style="@style/CustomFontStyle"
         />
@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView3"
-        android:background="@drawable/spinnerbg"
+        android:background="@drawable/border_blue"
         android:layout_marginHorizontal="16dp"
         style="@style/SpinnerStyle"
         />
